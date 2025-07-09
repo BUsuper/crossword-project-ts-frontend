@@ -60,36 +60,48 @@ export function createIterationOrder(
   return iterationOrder;
 }
 
-export function selectCurrentWord(
-  cellsArr,
-  isVerticalSelection,
-  selectedCellY,
-  selectedCellX
-) {
-  const currentWord = [];
-  const consecutiveCoordinateIndex = isVerticalSelection ? 0 : 1;
-  let isSelectedCellFound = false;
+export type CurrentWord = [number, number][];
 
-  let i = 0;
+export function selectCurrentWord(
+  cellsArr: string[],
+  isVerticalSelection: boolean,
+  selectedCellY: string,
+  selectedCellX: string
+): CurrentWord {
+  const currentWord: CurrentWord = [];
+  const consecutiveCoordinateIndex: number = isVerticalSelection ? 0 : 1;
+  let isSelectedCellFound: boolean = false;
+
+  let i: number = 0;
   while (i < cellsArr.length) {
-    const currentCellId = shortenId(cellsArr[i]);
-    const currentIsSelected =
+    const currentCellId: CellId = shortenId(cellsArr[i]);
+
+    if (!currentCellId) {
+      throw new Error(
+        `Check the cellId format. cellId is ${cellsArr[i]}
+        cellId format should be "CrosswordCell0,0"`
+      );
+    }
+
+    const isCurrentSelected: boolean =
       currentCellId[0] === +selectedCellY &&
       currentCellId[1] === +selectedCellX;
 
     // If the word isn't empty, check if the cell is consecutive
     if (currentWord.length > 0) {
+      const lastCell: CellId | undefined = currentWord.at(-1);
+
       if (
-        currentWord.at(-1)[consecutiveCoordinateIndex] ===
-        currentCellId[consecutiveCoordinateIndex] - 1
+        lastCell &&
+        lastCell[consecutiveCoordinateIndex] ===
+          currentCellId[consecutiveCoordinateIndex] - 1
       ) {
         // If consecutive, check if it's current cell
-        if (currentIsSelected) {
+        if (isCurrentSelected) {
           // If it's current, trigger the found flag and push it, then move on
           isSelectedCellFound = true;
           currentWord.push(currentCellId);
           i++;
-          continue;
         } else {
           // If it's not current, it's still consecutive, just push it
           currentWord.push(currentCellId);
@@ -99,13 +111,12 @@ export function selectCurrentWord(
         // If the cell is not consecutive
       } else {
         // Check if it's current
-        if (currentIsSelected) {
+        if (isCurrentSelected) {
           // If it's current, we start a new word (empty the array, trigger the found flag)
-          currentWord.splice(0, currentWord.length);
+          currentWord.length = 0;
           isSelectedCellFound = true;
           currentWord.push(currentCellId);
           i++;
-          continue;
           // If it's not current
         } else {
           // Check if current cell is found
@@ -115,7 +126,7 @@ export function selectCurrentWord(
           } else {
             // Not consecutive, not current word, so
             // Delete everything from the array and move on
-            currentWord.splice(0, currentWord.length);
+            currentWord.length = 0;
             currentWord.push(currentCellId);
             i++;
             continue;
@@ -125,7 +136,7 @@ export function selectCurrentWord(
     } else {
       // If it's the first letter that goes into the word you can't check if it's consecutive
       // But you still need to check if it's current
-      if (currentIsSelected) {
+      if (isCurrentSelected) {
         isSelectedCellFound = true;
       }
       currentWord.push(currentCellId);
@@ -134,21 +145,36 @@ export function selectCurrentWord(
   }
   return currentWord;
 }
+type CellId = [number, number];
 
-function shortenId(cellId) {
-  return cellId
+function shortenId(cellId: string): CellId {
+  const shortenedId = cellId
     .slice(13)
     .split(",")
-    .map((coordinate) => +coordinate);
+    .map((coordinate: string): number => +coordinate);
+
+  if (shortenedId.length !== 2) {
+    throw new Error(`Check the cellId format. cellId is ${cellId}
+        cellId format should be "CrosswordCell0,0"`);
+  }
+
+  return shortenedId as CellId;
 }
 
 export function filterDirection(
-  cellId,
-  isVerticalSelection,
-  selectedCellY,
-  selectedCellX
-) {
-  const shortenedId = shortenId(cellId);
+  cellId: string,
+  isVerticalSelection: boolean,
+  selectedCellY: string,
+  selectedCellX: string
+): boolean {
+  const shortenedId: CellId = shortenId(cellId);
+
+  if (!shortenedId) {
+    throw new Error(
+      `Check the cellId format. cellId is ${cellId}
+        cellId format should be "CrosswordCell0,0"`
+    );
+  }
 
   if (isVerticalSelection) {
     return shortenedId[1] === +selectedCellX;
