@@ -1,0 +1,15 @@
+.directionHeader {
+  margin: 10px auto;
+}
+
+.question {
+  margin-left: 20%;
+  margin-top: 5px;
+  text-align: left;
+}
+
+@media (max-width: 800px) {
+  .question {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,10 @@
+#CrosswordSelectionForm {
+  width: 20%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#CrosswordsSelection {
+  margin-right: 5px;
+}

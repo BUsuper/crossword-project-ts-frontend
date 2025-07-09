@@ -1,0 +1,21 @@
+#CrosswordField {
+  /* No growth, no shrinking, take up 60% of space */
+  flex: 0 0 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid black;
+  padding: 0;
+}
+
+.emptyCell {
+  visibility: hidden;
+  border: none;
+}
