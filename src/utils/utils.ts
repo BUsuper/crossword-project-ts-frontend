@@ -1,3 +1,5 @@
+import type { CrosswordField } from "../assets/crosswords";
+
 /* Vertical selection: Check each column. If a column has a down arrow - check each cell below.
 When an arrow is found, put the cell in the list, move to the next cell (below).
 If a cell doesn't have an arrow, but is active and placed concecutively after the one with an arrow,
@@ -7,28 +9,30 @@ If an active cell is encountered, but there is no down arrow, it's not a part of
 vertically, so it doesn't belong to the list.
 When we run out of elements in the column, move right to the next column 
 The algorithm is the same for horizontal selection, the only change is direction */
-function createIterationOrder(
-  crossword,
-  numberOfColumns,
-  numberOfRows,
-  direction
-) {
-  /* The direction determines whether we iterate over columns or rows (first dimention)
+export type IterationOrder = [number, number][];
+
+export function createIterationOrder(
+  crossword: CrosswordField,
+  numberOfColumns: number,
+  numberOfRows: number,
+  direction: "down" | "right"
+): IterationOrder {
+  /* The direction determines whether we iterate over columns or rows (first dimension)
     iteration inside a column/row is in the second dimension */
-  const firstDimentionLength =
+  const firstDimensionLength: number =
     direction === "down" ? numberOfColumns : numberOfRows;
-  const secondDimentionLength =
+  const secondDimentionLength: number =
     direction === "down" ? numberOfRows : numberOfColumns;
 
-  const iterationOrder = [];
+  const iterationOrder: IterationOrder = [];
 
-  for (let i = 0; i < firstDimentionLength; i++) {
-    let isArrowFound = false;
+  for (let i: number = 0; i < firstDimensionLength; i++) {
+    let isArrowFound: boolean = false;
 
-    for (let j = 0; j < secondDimentionLength; j++) {
+    for (let j: number = 0; j < secondDimentionLength; j++) {
       // If we first iterate over columns, then the first iteration variable is a column index
-      const column = direction === "down" ? i : j;
-      const row = direction === "down" ? j : i;
+      const column: number = direction === "down" ? i : j;
+      const row: number = direction === "down" ? j : i;
 
       if (isArrowFound) {
         if (crossword[row][column]?.[1] === direction) {
@@ -49,7 +53,6 @@ function createIterationOrder(
           isArrowFound = true;
           continue;
         }
-        continue;
       }
     }
   }
@@ -57,7 +60,7 @@ function createIterationOrder(
   return iterationOrder;
 }
 
-function selectCurrentWord(
+export function selectCurrentWord(
   cellsArr,
   isVerticalSelection,
   selectedCellY,
@@ -139,7 +142,7 @@ function shortenId(cellId) {
     .map((coordinate) => +coordinate);
 }
 
-function filterDirection(
+export function filterDirection(
   cellId,
   isVerticalSelection,
   selectedCellY,
@@ -152,5 +155,3 @@ function filterDirection(
   }
   return shortenedId[0] === +selectedCellY;
 }
-
-export { createIterationOrder, selectCurrentWord, shortenId, filterDirection };
