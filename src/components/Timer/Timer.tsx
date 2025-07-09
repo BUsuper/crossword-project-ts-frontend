@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
+import type { JSX } from "react";
 import "./Timer.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import stopIndicator from "../../assets/stop.svg";
 import { selectIsFinished } from "../../slices/statusesSelectors";
-import { setTime } from "../../slices/statusesSlice";
+import { setTime } from "../../slices/timeSlice";
 
-export function Timer() {
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const isFinished = useSelector(selectIsFinished);
+export function Timer(): JSX.Element {
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const isFinished = useAppSelector(selectIsFinished);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // The callback is called when the component mounts and when isFinished is changed
   useEffect(() => {
-    // If isFinished don't start another timer
+    // If isFinished doesn't start another timer
     if (isFinished) {
       dispatch(setTime(elapsedTime));
       // If there is not timer, there is nothing to clean up
       return;
     }
     const timer = setInterval(() => {
-      setElapsedTime((prev) => prev + 1);
+      setElapsedTime((prev: number): number => prev + 1);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isFinished]);
+  }, [isFinished, elapsedTime, dispatch]);
 
   return (
     <div id="Timer">
@@ -33,7 +34,7 @@ export function Timer() {
         id="stopIndicator"
         style={{ visibility: isFinished ? "visible" : "hidden" }}
       ></img>
-      <p id="clock">{`${(elapsedTime - (elapsedTime % 60)) / 60}:${String(
+      <p id="clock">{`${Math.floor(elapsedTime / 60)}:${String(
         elapsedTime % 60
       ).padStart(2, "0")}`}</p>
     </div>
