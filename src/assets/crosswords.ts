@@ -1,7 +1,7 @@
 type CrosswordCell = [string, string, string, string];
 type EmptyCell = "";
 type CrosswordRow = (CrosswordCell | EmptyCell)[];
-type CrosswordField = CrosswordRow[];
+export type CrosswordField = CrosswordRow[];
 type Crossword = { [date: string]: CrosswordField };
 
 const crosswords: Crossword = {
