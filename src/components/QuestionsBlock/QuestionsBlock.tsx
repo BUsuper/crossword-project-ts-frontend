@@ -3,14 +3,14 @@ import type { JSX } from "react";
 import type {
   CrosswordField,
   CrosswordRow,
-  CrosswordCell,
+  CrosswordCellType,
   EmptyCell,
 } from "../../assets/crosswords";
 import { useAppSelector } from "../../store/hooks";
 import { selectCrossword } from "../../slices/crosswordSelectors";
 
 type QuestionsBlockProps = {
-  direction: "down" | "right";
+  direction: string;
 };
 
 export function QuestionsBlock({
@@ -25,7 +25,7 @@ export function QuestionsBlock({
       </h1>
       <div>
         {crossword.map((row: CrosswordRow) =>
-          row.map((cell: CrosswordCell | EmptyCell) => {
+          row.map((cell: CrosswordCellType | EmptyCell) => {
             if (cell[0] && cell[1] === direction) {
               return (
                 <p
