@@ -1,17 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import type { JSX } from "react";
 import "./EndgameModal.css";
 import closeModalLogo from "../../assets/close.svg";
-import { selectHasErrors, selectTime } from "../../slices/statusesSelectors";
+import { selectHasErrors } from "../../slices/statusesSelectors";
+import { selectTime } from "../../slices/timeSelectors";
 import {
   setIsEndgameModalOpen,
   setIsShowingAnswers,
 } from "../../slices/statusesSlice";
 
-export function EndgameModal() {
-  const hasErrors = useSelector(selectHasErrors);
-  const { minutes, seconds } = useSelector(selectTime);
+export function EndgameModal(): JSX.Element {
+  type FinishTime = {
+    minutes: number;
+    seconds: number;
+  };
 
-  const dispatch = useDispatch();
+  const hasErrors: boolean = useAppSelector(selectHasErrors);
+  const { minutes, seconds }: FinishTime = useAppSelector(selectTime);
+
+  const dispatch = useAppDispatch();
 
   return (
     <div id="EndgameModal">
@@ -20,6 +27,7 @@ export function EndgameModal() {
           id="closeEndgameModalButton"
           src={closeModalLogo}
           onClick={() => dispatch(setIsEndgameModalOpen(false))}
+          alt="Close"
         ></img>
       </div>
       <div id="modalResultsRow">
@@ -39,14 +47,12 @@ export function EndgameModal() {
         )}
       </div>
       <div id="modalBottomRow">
-        {hasErrors ? (
+        {hasErrors && (
           <input
             type="button"
             value="Show answers"
             onClick={() => dispatch(setIsShowingAnswers(true))}
-          ></input>
-        ) : (
-          ""
+          />
         )}
       </div>
     </div>
