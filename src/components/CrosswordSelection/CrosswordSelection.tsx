@@ -1,5 +1,5 @@
 import "./CrosswordSelection.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import crosswords from "../../assets/crosswords";
 import {
   setCrossword,
@@ -7,18 +7,24 @@ import {
   setVerticalIterationOrder,
 } from "../../slices/crosswordSlice";
 import { selectIsFinished } from "../../slices/statusesSelectors";
+import type { FormEvent, JSX } from "react";
 
-export function CrosswordSelection() {
-  const crosswordNames = Object.keys(crosswords);
-  const isFinished = useSelector(selectIsFinished);
+export function CrosswordSelection(): JSX.Element {
+  const crosswordNames: string[] = Object.keys(crosswords);
+  const isFinished: boolean = useAppSelector(selectIsFinished);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     // target is the whole form, crosswords is the name of select in it
-    const selectedCrossword = e.target.elements.crosswords.value;
+    const selectedCrossword = (
+      (e.target as HTMLFormElement).elements.namedItem(
+        "crosswords"
+      ) as HTMLSelectElement
+    ).value;
+
     dispatch(setCrossword(selectedCrossword));
     dispatch(setVerticalIterationOrder(selectedCrossword));
     dispatch(setHorizontalIterationOrder(selectedCrossword));
@@ -37,7 +43,7 @@ export function CrosswordSelection() {
           </option>
         ))}
       </select>
-      <input type="submit" value="Select" disabled={isFinished}></input>
+      <input type="submit" value="Select" disabled={isFinished} />
     </form>
   );
 }
