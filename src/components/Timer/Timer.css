@@ -1,0 +1,17 @@
+#stopIndicator {
+  height: 10px;
+  width: 10px;
+}
+
+#clock {
+  height: 25px;
+  margin: auto 5px;
+}
+
+#Timer {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
