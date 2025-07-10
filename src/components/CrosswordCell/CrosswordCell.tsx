@@ -10,7 +10,7 @@ type CrosswordCellProps = {
   y: number;
   correctAnswer: string;
   number: string;
-  direction: "right" | "down";
+  direction: string;
   isInSelectionList: boolean;
 };
 
