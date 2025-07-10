@@ -1,6 +1,6 @@
-type CrosswordCell = [string, string, string, string];
-type EmptyCell = "";
-type CrosswordRow = (CrosswordCell | EmptyCell)[];
+export type CrosswordCell = [string, string, string, string];
+export type EmptyCell = "";
+export type CrosswordRow = (CrosswordCell | EmptyCell)[];
 export type CrosswordField = CrosswordRow[];
 type Crossword = { [date: string]: CrosswordField };
 
