@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   selectSelectedCell,
   selectIsVerticalSelection,
@@ -7,32 +7,41 @@ import { selectCrossword } from "../../slices/crosswordSelectors";
 import { selectCurrentWord, filterDirection } from "../../utils/utils";
 import { setIsVerticalSelection } from "../../slices/selectedSlice";
 import { useEffect } from "react";
+import type { CrosswordField } from "../../assets/crosswords";
 
-export default function useCrosswordField() {
+export default function useCrosswordField(): {
+  crossword: CrosswordField;
+  currentWord: string[];
+} {
   // Get height(rows) and width(columns) of the crossword object
-  const crossword = useSelector(selectCrossword);
+  const crossword: CrosswordField = useAppSelector(selectCrossword);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [selectedCellY, selectedCellX] =
-    useSelector(selectSelectedCell).split(":");
-  const isVerticalSelection = useSelector(selectIsVerticalSelection);
+  const [selectedCellY, selectedCellX]: string[] =
+    useAppSelector(selectSelectedCell).split(":");
+  const isVerticalSelection: boolean = useAppSelector(
+    selectIsVerticalSelection
+  );
 
   // A list of ids of all cells that should be highlighted as parts of selected row/column
-  const cellsInSelectionList = Array.from(
+  const cellsInSelectionList: string[] = Array.from(
     document.getElementsByClassName("CrosswordCell")
   )
-    .map((cell) => cell.id)
-    .filter((cellId) =>
+    .map((cell): string => {
+      const htmlCell = cell as HTMLElement;
+      return htmlCell.id;
+    })
+    .filter((cellId: string): boolean =>
       filterDirection(cellId, isVerticalSelection, selectedCellY, selectedCellX)
     );
 
-  const currentWord = selectCurrentWord(
+  const currentWord: string[] = selectCurrentWord(
     cellsInSelectionList,
     isVerticalSelection,
     selectedCellY,
     selectedCellX
-  ).map((id) => id.join(","));
+  ).map((id: [number, number]): string => id.join(","));
 
   // This prevents selection when there is no actual word, just a single cell surrounded by emtpy cells
   // Need useEffect to avoid execution while CrosswordField is rendering

@@ -1,37 +1,38 @@
 import "./CrosswordField.css";
-import { CrosswordCell } from "../../components";
+import { CrosswordCell } from "..";
 import useCrosswordField from "./useCrosswordField";
+import type { CrosswordField, CrosswordRow } from "../../assets/crosswords";
+import type { JSX } from "react";
 
-export function CrosswordField() {
-  const { crossword, currentWord } = useCrosswordField();
+export function CrosswordField(): JSX.Element {
+  const {
+    crossword,
+    currentWord,
+  }: { crossword: CrosswordField; currentWord: string[] } = useCrosswordField();
 
   // Crossword cells are only rendered in non-empty table cells
   return (
     <div id="CrosswordField">
       <table>
         <tbody>
-          {crossword.map((row, rowNumber) => (
+          {crossword.map((row: CrosswordRow, rowNumber: number) => (
             <tr key={`row${rowNumber}`}>
-              {row.map((column, columnNumber) => (
+              {row.map((cell: CrosswordCell, columnNumber: number) => (
                 <td
                   key={`x${columnNumber}y${rowNumber}`}
-                  className={
-                    !crossword[rowNumber][columnNumber] ? "emptyCell" : ""
-                  }
+                  className={!cell ? "emptyCell" : ""}
                 >
-                  {crossword[rowNumber][columnNumber] ? (
+                  {cell && (
                     <CrosswordCell
                       x={columnNumber}
                       y={rowNumber}
-                      direction={crossword[rowNumber][columnNumber][1]}
-                      number={crossword[rowNumber][columnNumber][2]}
-                      correctAnswer={crossword[rowNumber][columnNumber][3]}
+                      direction={cell[1]}
+                      number={cell[2]}
+                      correctAnswer={cell[3]}
                       isInSelectionList={currentWord.includes(
                         `${rowNumber},${columnNumber}`
                       )}
-                    ></CrosswordCell>
-                  ) : (
-                    ""
+                    />
                   )}
                 </td>
               ))}
