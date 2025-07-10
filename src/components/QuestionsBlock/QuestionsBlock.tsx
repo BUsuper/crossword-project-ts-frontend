@@ -1,9 +1,22 @@
 import "./QuestionsBlock.css";
-import { useSelector } from "react-redux";
+import type { JSX } from "react";
+import type {
+  CrosswordField,
+  CrosswordRow,
+  CrosswordCell,
+  EmptyCell,
+} from "../../assets/crosswords";
+import { useAppSelector } from "../../store/hooks";
 import { selectCrossword } from "../../slices/crosswordSelectors";
 
-export function QuestionsBlock({ direction }) {
-  const crossword = useSelector(selectCrossword);
+type QuestionsBlockProps = {
+  direction: "down" | "right";
+};
+
+export function QuestionsBlock({
+  direction,
+}: QuestionsBlockProps): JSX.Element {
+  const crossword: CrosswordField = useAppSelector(selectCrossword);
 
   return (
     <div>
@@ -11,8 +24,8 @@ export function QuestionsBlock({ direction }) {
         {direction === "right" ? "Across" : "Down"}
       </h1>
       <div>
-        {crossword.map((row) =>
-          row.map((cell) => {
+        {crossword.map((row: CrosswordRow) =>
+          row.map((cell: CrosswordCell | EmptyCell) => {
             if (cell[0] && cell[1] === direction) {
               return (
                 <p
@@ -21,6 +34,7 @@ export function QuestionsBlock({ direction }) {
                 >{`${cell[2]}) ${cell[0]}`}</p>
               );
             }
+            return null;
           })
         )}
       </div>
