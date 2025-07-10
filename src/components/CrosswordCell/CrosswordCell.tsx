@@ -1,5 +1,18 @@
+import type { JSX } from "react";
 import "./CrosswordCell.css";
-import useCrosswordCell from "./useCrosswordCell";
+import {
+  useCrosswordCell,
+  type UseCrosswordCellReturns,
+} from "./useCrosswordCell";
+
+type CrosswordCellProps = {
+  x: number;
+  y: number;
+  correctAnswer: string;
+  number: string;
+  direction: "right" | "down";
+  isInSelectionList: boolean;
+};
 
 export function CrosswordCell({
   x,
@@ -8,7 +21,7 @@ export function CrosswordCell({
   number,
   direction,
   isInSelectionList,
-}) {
+}: CrosswordCellProps): JSX.Element {
   const {
     isChecking,
     isShowingAnswers,
@@ -20,7 +33,7 @@ export function CrosswordCell({
     handleInputChange,
     handleKeyDown,
     handleKeyUp,
-  } = useCrosswordCell(y, x, correctAnswer);
+  }: UseCrosswordCellReturns = useCrosswordCell(y, x, correctAnswer);
 
   return (
     <div
@@ -46,11 +59,7 @@ export function CrosswordCell({
             "letterContainer" +
             " " +
             `${
-              isChecking
-                ? isCorrectLetter
-                  ? "correctLetter"
-                  : "wrongLetter"
-                : ""
+              isChecking && (isCorrectLetter ? "correctLetter" : "wrongLetter")
             }` +
             " " +
             `${isInSelectionList ? "inSelectedList" : ""}`
