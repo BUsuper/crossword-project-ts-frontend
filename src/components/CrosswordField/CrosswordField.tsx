@@ -1,5 +1,6 @@
 import "./CrosswordField.css";
 import { CrosswordCell } from "..";
+import type { CrosswordCellType } from "../../assets/crosswords";
 import useCrosswordField from "./useCrosswordField";
 import type { CrosswordField, CrosswordRow } from "../../assets/crosswords";
 import type { JSX } from "react";
@@ -17,7 +18,7 @@ export function CrosswordField(): JSX.Element {
         <tbody>
           {crossword.map((row: CrosswordRow, rowNumber: number) => (
             <tr key={`row${rowNumber}`}>
-              {row.map((cell: CrosswordCell, columnNumber: number) => (
+              {row.map((cell: CrosswordCellType | "", columnNumber: number) => (
                 <td
                   key={`x${columnNumber}y${rowNumber}`}
                   className={!cell ? "emptyCell" : ""}

@@ -136,7 +136,7 @@ export function useCrosswordCell(
     id: string
   ): void => {
     const inputElement: HTMLInputElement = e.target;
-    const userInput: string = inputElement.value;
+    const userInput: string = inputElement.value.toUpperCase();
 
     setUserLetter(userInput);
     const iterationOrder: IterationOrder = isVerticalSelection
@@ -193,7 +193,7 @@ export function useCrosswordCell(
   // This is used when letter is rendered and checking mode is active to determine
   // if the user's input is a correct answer and determine the input tag class
   // accordingly to change the color of the letter
-  const isCorrectLetter: boolean = userLetter === correctAnswer;
+  const isCorrectLetter: boolean = userLetter === correctAnswer.toUpperCase();
 
   // If the letter is wrong and the checking mode is on, dispatch the action
   // useEffect ensures that it's done when isChecking changes, not during the render (that would cause an error)
