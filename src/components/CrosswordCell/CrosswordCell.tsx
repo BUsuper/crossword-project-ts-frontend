@@ -71,7 +71,7 @@ export function CrosswordCell({
           onClick={() => handleClick(inputId, isCurrentlySelected)}
           disabled={isChecking}
           autoComplete="off"
-          value={isShowingAnswers ? correctAnswer : userLetter}
+          value={isShowingAnswers ? correctAnswer.toUpperCase() : userLetter}
         ></input>
       </div>
     </div>
