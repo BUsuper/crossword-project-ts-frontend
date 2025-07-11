@@ -42,8 +42,8 @@
 }
 
 .letterContainer {
-  font-size: 260%;
-  height: 85%;
+  font-size: 200%;
+  height: 60%;
   width: 60%;
   border: none;
   text-align: center;
@@ -80,6 +80,11 @@
     height: 35px;
     font-size: 7px;
   }
+
+  .letterContainer {
+    font-size: 180%;
+    width: 40%;
+  }
 }
 
 @media (max-width: 500px) {
@@ -88,6 +93,10 @@
     height: 28px;
     font-size: 6px;
   }
+
+  .letterContainer {
+    width: 30%;
+  }
 }
 
 @media (max-width: 400px) {
@@ -95,5 +104,8 @@
     width: 21px;
     height: 21px;
     font-size: 5px;
+  }
+  .letterContainer {
+    width: 30%;
   }
 }
