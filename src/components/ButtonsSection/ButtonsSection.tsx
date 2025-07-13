@@ -1,4 +1,4 @@
-import "./ButtonsSection.css";
+import "./ButtonsSection.scss";
 import type { JSX } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
