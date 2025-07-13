@@ -1,0 +1,32 @@
+$root-width: 80vw;
+$root-min-height: 100vh;
+$root-margin: 0 auto;
+
+$crossword-wrapper-bottom-margin: 20px;
+
+#root {
+  width: $root-width;
+  min-height: $root-min-height;
+  margin: $root-margin;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+
+  /* disallow selection */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none;
+
+  #crosswordWrapprer {
+    flex: 1;
+    display: flex;
+    margin-bottom: $crossword-wrapper-bottom-margin;
+  }
+
+  @media (max-width: 800px) {
+    #crosswordWrapprer {
+      flex-direction: column; /* Stack components vertically */
+    }
+  }
+}
