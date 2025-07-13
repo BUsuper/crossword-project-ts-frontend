@@ -1,4 +1,4 @@
-import "./CrosswordSelection.css";
+import "./CrosswordSelection.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import crosswords from "../../assets/crosswords";
 import {
