@@ -1,4 +1,4 @@
-import "./QuestionsBlock.css";
+import "./QuestionsBlock.scss";
 import type { JSX } from "react";
 import type {
   CrosswordField,
