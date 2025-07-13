@@ -1,6 +1,6 @@
 # Igor's Crossword Project
 
-### A single-page web-application built using TypeScript, React, and Redux Toolkit
+### A single-page web-application built using TypeScript, React, and Redux Toolkit, and styled with SCSS
 
 Solve at: https://busuper.github.io/crossword-project/
 
