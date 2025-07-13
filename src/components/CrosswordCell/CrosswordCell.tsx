@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import "./CrosswordCell.css";
+import "./CrosswordCell.scss";
 import {
   useCrosswordCell,
   type UseCrosswordCellReturns,
