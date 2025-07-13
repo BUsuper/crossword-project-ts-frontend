@@ -1,4 +1,4 @@
-import "./Header.css";
+import "./Header.scss";
 import type { JSX } from "react";
 import { ButtonsSection, Timer, CrosswordSelection } from "..";
 
