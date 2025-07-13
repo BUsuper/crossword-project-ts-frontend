@@ -1,0 +1,16 @@
+@mixin flex-center-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin modal {
+  z-index: 100; /* So that it's shown over everything else */
+  position: fixed; /* Keeps the modal fixed relative to the viewport */
+  top: 50%; /* Put the top of the modal in the middle of the page vertically */
+  left: 50%; /* Put the left side of the modal in the middle of the page horizontally */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Shifts the modal down and right by half of its height and width so it's centred */
+}

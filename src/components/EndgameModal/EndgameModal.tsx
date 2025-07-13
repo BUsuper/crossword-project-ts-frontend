@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import type { JSX } from "react";
-import "./EndgameModal.css";
+import "./EndgameModal.scss";
 import closeModalLogo from "../../assets/close.svg";
 import { selectHasErrors } from "../../slices/statusesSelectors";
 import { selectTime } from "../../slices/timeSelectors";

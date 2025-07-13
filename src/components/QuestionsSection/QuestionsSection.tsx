@@ -1,4 +1,4 @@
-import "./QuestionsSection.css";
+import "./QuestionsSection.scss";
 import type { JSX } from "react";
 import { QuestionsBlock } from "..";
 

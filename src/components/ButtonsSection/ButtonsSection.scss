@@ -1,0 +1,14 @@
+$section-width: 20%;
+$section-margin: 10px;
+$button-margin: auto 2.5px;
+
+#ButtonsSection {
+  width: $section-width;
+  margin: $section-margin;
+  display: flex;
+  justify-content: center;
+
+  input[type="button"] {
+    margin: $button-margin;
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { JSX } from "react";
-import "./Timer.css";
+import "./Timer.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import stopIndicator from "../../assets/stop.svg";
 import { selectIsFinished } from "../../slices/statusesSelectors";

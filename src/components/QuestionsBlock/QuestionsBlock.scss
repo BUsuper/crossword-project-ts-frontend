@@ -1,0 +1,18 @@
+$directionHeader-margin: 10px auto;
+
+$question-margin-left: 20%;
+$question-margin-top: 5px;
+
+.directionHeader {
+  margin: $directionHeader-margin;
+}
+
+.question {
+  margin-left: $question-margin-left;
+  margin-top: $question-margin-top;
+  text-align: left;
+
+  @media (max-width: 800px) {
+    margin-left: 0;
+  }
+}

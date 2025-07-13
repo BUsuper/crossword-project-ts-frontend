@@ -1,4 +1,4 @@
-import "./CrosswordField.css";
+import "./CrosswordField.scss";
 import { CrosswordCell } from "..";
 import type { CrosswordCellType } from "../../assets/crosswords";
 import useCrosswordField from "./useCrosswordField";

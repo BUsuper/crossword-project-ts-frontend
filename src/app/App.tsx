@@ -6,7 +6,7 @@ import {
   Header,
   QuestionsSection,
 } from "../components";
-import "./App.css";
+import "./App.scss";
 import { selectIsEndgameModalOpen } from "../slices/statusesSelectors";
 
 export default function App(): JSX.Element {
