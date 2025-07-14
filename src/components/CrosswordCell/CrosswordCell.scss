@@ -29,9 +29,9 @@ $downArrowContainer-width: 20%;
 
 $letterContainer-font-size: 200%;
 $letterContainer-size: 60%; // This is how it should be, tested on mobile devices
-$letterContainer-font-size-small: 180%;
+$letterContainer-font-size-small: 150%;
 $letterContainer-size-medium: 40%;
-$letterContainer-size-small: 30%;
+$letterContainer-size-small: 35%;
 
 .CrosswordCell {
   width: $CrosswordCell-size;
@@ -124,6 +124,10 @@ $letterContainer-size-small: 30%;
         background-color: white;
         cursor: not-allowed;
       }
+    }
+    .inSelectedList,
+    .inSelectedList:disabled {
+      background-color: $in-selected-list-color;
     }
   }
 }
