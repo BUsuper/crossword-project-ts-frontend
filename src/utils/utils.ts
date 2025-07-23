@@ -1,4 +1,4 @@
-import type { CrosswordField } from "../assets/crosswords";
+import type { CrosswordFieldType } from "../assets/crosswords";
 
 /* Vertical selection: Check each column. If a column has a down arrow - check each cell below.
 When an arrow is found, put the cell in the list, move to the next cell (below).
@@ -12,7 +12,7 @@ The algorithm is the same for horizontal selection, the only change is direction
 export type IterationOrder = [number, number][];
 
 export function createIterationOrder(
-  crossword: CrosswordField,
+  crossword: CrosswordFieldType,
   numberOfColumns: number,
   numberOfRows: number,
   direction: "down" | "right"
@@ -180,4 +180,43 @@ export function filterDirection(
     return shortenedId[1] === +selectedCellX;
   }
   return shortenedId[0] === +selectedCellY;
+}
+
+export async function loadCrosswordKeys(): Promise<string[] | null> {
+  const URL = "https://crossword-project-backend.onrender.com/api/keys";
+  try {
+    const res: Response = await fetch(URL);
+
+    if (!res.ok) {
+      console.error(`HTTP error. Status: ${res.status}`);
+      return null;
+    }
+
+    const keys: string[] = await res.json();
+    return keys;
+  } catch (error) {
+    console.error(`Cannot access ${URL}`, error);
+    return null;
+  }
+}
+
+export async function loadCrossword(
+  key: string
+): Promise<CrosswordFieldType | null> {
+  const URL = `https://crossword-project-backend.onrender.com/api?date=${key}`;
+
+  try {
+    const res: Response = await fetch(URL);
+
+    if (!res.ok) {
+      console.error(`HTTP error. Status: ${res.status}`);
+      return null;
+    }
+
+    const crossword: CrosswordFieldType = await res.json();
+    return crossword;
+  } catch (error) {
+    console.error(`Cannot access ${URL}`, error);
+    return null;
+  }
 }
