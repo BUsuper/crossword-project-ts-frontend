@@ -8,6 +8,7 @@ import {
   QuestionsSection,
 } from "../components";
 import "./App.scss";
+import * as motion from "motion/react-client";
 import { selectIsEndgameModalOpen } from "../slices/statusesSelectors";
 import { selectCrossword } from "../slices/crosswordSelectors";
 
@@ -16,7 +17,11 @@ export default function App(): JSX.Element {
   const crossword: CrosswordFieldType | null = useAppSelector(selectCrossword);
 
   return (
-    <>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 3 }}
+    >
       <Header />
       {crossword ? (
         <div id="crosswordWrapprer">
@@ -29,6 +34,6 @@ export default function App(): JSX.Element {
         </div>
       )}
       {isEndgameModalOpen && <EndgameModal />}
-    </>
+    </motion.main>
   );
 }
