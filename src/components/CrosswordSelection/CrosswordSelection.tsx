@@ -64,10 +64,10 @@ export function CrosswordSelection(): JSX.Element {
       }
     };
 
-    fetchCrossword();
+    if (selectedCrosswordName) {
+      fetchCrossword();
+    }
   }, [selectedCrosswordName, dispatch]);
-
-  console.log(crosswordNames);
 
   return (
     <form
