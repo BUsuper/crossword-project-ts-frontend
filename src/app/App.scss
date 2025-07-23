@@ -1,8 +1,12 @@
+@use "../styles/mixins" as *;
+
 $root-width: 80vw;
 $root-min-height: 100vh;
 $root-margin: 0 auto;
 
 $crossword-wrapper-bottom-margin: 20px;
+
+$select-message-font-size: 3em;
 
 #root {
   width: $root-width;
@@ -22,6 +26,13 @@ $crossword-wrapper-bottom-margin: 20px;
     flex: 1;
     display: flex;
     margin-bottom: $crossword-wrapper-bottom-margin;
+  }
+
+  #selectMessage {
+    @include flex-center-elements;
+    width: 100%;
+    min-height: calc($root-min-height * 0.8);
+    font-size: $select-message-font-size;
   }
 
   @media (max-width: 800px) {
