@@ -1,34 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import crosswords from "../assets/crosswords";
-import type { CrosswordField } from "../assets/crosswords";
+import type { CrosswordFieldType } from "../assets/crosswords";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { IterationOrder } from "../utils/utils";
 import { createIterationOrder } from "../utils/utils";
 
 type CrosswordState = {
-  crossword: CrosswordField;
-  verticalIterationOrder: IterationOrder;
-  horizontalIterationOrder: IterationOrder;
+  crossword: CrosswordFieldType | null;
+  verticalIterationOrder: IterationOrder | null;
+  horizontalIterationOrder: IterationOrder | null;
 };
 
-const selectedCrossword = "30.05.2025";
-
 const initialState: CrosswordState = {
-  crossword: crosswords[selectedCrossword],
+  crossword: null,
 
-  verticalIterationOrder: createIterationOrder(
-    crosswords[selectedCrossword],
-    Object.keys(crosswords[selectedCrossword][0]).length,
-    Object.keys(crosswords[selectedCrossword]).length,
-    "down"
-  ),
+  verticalIterationOrder: null,
 
-  horizontalIterationOrder: createIterationOrder(
-    crosswords[selectedCrossword],
-    Object.keys(crosswords[selectedCrossword][0]).length,
-    Object.keys(crosswords[selectedCrossword]).length,
-    "right"
-  ),
+  horizontalIterationOrder: null,
 };
 
 const crosswordSlice = createSlice({
@@ -37,24 +24,33 @@ const crosswordSlice = createSlice({
   initialState,
 
   reducers: {
-    setCrossword: (state, action: PayloadAction<string>) => {
-      state.crossword = crosswords[action.payload];
+    setCrossword: (
+      state: CrosswordState,
+      action: PayloadAction<CrosswordFieldType>
+    ) => {
+      state.crossword = action.payload;
     },
 
-    setVerticalIterationOrder: (state, action) => {
+    setVerticalIterationOrder: (
+      state: CrosswordState,
+      action: PayloadAction<CrosswordFieldType>
+    ) => {
       state.verticalIterationOrder = createIterationOrder(
-        crosswords[action.payload],
-        Object.keys(crosswords[action.payload][0]).length,
-        Object.keys(crosswords[action.payload]).length,
+        action.payload,
+        Object.keys(action.payload[0]).length,
+        Object.keys(action.payload).length,
         "down"
       );
     },
 
-    setHorizontalIterationOrder: (state, action) => {
+    setHorizontalIterationOrder: (
+      state: CrosswordState,
+      action: PayloadAction<CrosswordFieldType>
+    ) => {
       state.horizontalIterationOrder = createIterationOrder(
-        crosswords[action.payload],
-        Object.keys(crosswords[action.payload][0]).length,
-        Object.keys(crosswords[action.payload]).length,
+        action.payload,
+        Object.keys(action.payload[0]).length,
+        Object.keys(action.payload).length,
         "right"
       );
     },
