@@ -1,8 +1,8 @@
 export type CrosswordCellType = [string, string, string, string];
 export type EmptyCell = "";
 export type CrosswordRow = (CrosswordCellType | EmptyCell)[];
-export type CrosswordField = CrosswordRow[];
-type Crossword = { [date: string]: CrosswordField };
+export type CrosswordFieldType = CrosswordRow[];
+type Crossword = { [date: string]: CrosswordFieldType };
 
 const crosswords: Crossword = {
   "30.05.2025": [
@@ -61,7 +61,7 @@ const crosswords: Crossword = {
     ["", "", "", "", "", ["", "", "", "n"], "", ""],
   ],
 
-  "2.07.2025": [
+  "02.07.2025": [
     [
       ["Refused consent", "right", "1", "v"],
       ["", "", "", "e"],
@@ -169,7 +169,7 @@ const crosswords: Crossword = {
     ],
   ],
 
-  "3.07.2025": [
+  "03.07.2025": [
     [
       ["Oily fruit", "right", "1", "o"],
       ["", "", "", "l"],
