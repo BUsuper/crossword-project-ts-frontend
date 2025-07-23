@@ -1,7 +1,7 @@
 import "./QuestionsBlock.scss";
 import type { JSX } from "react";
 import type {
-  CrosswordField,
+  CrosswordFieldType,
   CrosswordRow,
   CrosswordCellType,
   EmptyCell,
@@ -16,7 +16,7 @@ type QuestionsBlockProps = {
 export function QuestionsBlock({
   direction,
 }: QuestionsBlockProps): JSX.Element {
-  const crossword: CrosswordField = useAppSelector(selectCrossword);
+  const crossword: CrosswordFieldType | null = useAppSelector(selectCrossword);
 
   return (
     <div>
@@ -24,19 +24,21 @@ export function QuestionsBlock({
         {direction === "right" ? "Across" : "Down"}
       </h1>
       <div>
-        {crossword.map((row: CrosswordRow) =>
-          row.map((cell: CrosswordCellType | EmptyCell) => {
-            if (cell[0] && cell[1] === direction) {
-              return (
-                <p
-                  key={`${cell[2]}${cell[1]}`}
-                  className="question"
-                >{`${cell[2]}) ${cell[0]}`}</p>
-              );
-            }
-            return null;
-          })
-        )}
+        {crossword
+          ? crossword.map((row: CrosswordRow) =>
+              row.map((cell: CrosswordCellType | EmptyCell) => {
+                if (cell[0] && cell[1] === direction) {
+                  return (
+                    <p
+                      key={`${cell[2]}${cell[1]}`}
+                      className="question"
+                    >{`${cell[2]}) ${cell[0]}`}</p>
+                  );
+                }
+                return null;
+              })
+            )
+          : ""}
       </div>
     </div>
   );

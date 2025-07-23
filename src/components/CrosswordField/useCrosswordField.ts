@@ -7,14 +7,14 @@ import { selectCrossword } from "../../slices/crosswordSelectors";
 import { selectCurrentWord, filterDirection } from "../../utils/utils";
 import { setIsVerticalSelection } from "../../slices/selectedSlice";
 import { useEffect } from "react";
-import type { CrosswordField } from "../../assets/crosswords";
+import type { CrosswordFieldType } from "../../assets/crosswords";
 
 export default function useCrosswordField(): {
-  crossword: CrosswordField;
+  crossword: CrosswordFieldType | null;
   currentWord: string[];
 } {
   // Get height(rows) and width(columns) of the crossword object
-  const crossword: CrosswordField = useAppSelector(selectCrossword);
+  const crossword: CrosswordFieldType | null = useAppSelector(selectCrossword);
 
   const dispatch = useAppDispatch();
 
