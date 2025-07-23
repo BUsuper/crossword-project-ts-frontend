@@ -5,10 +5,12 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import stopIndicator from "../../assets/stop.svg";
 import { selectIsFinished } from "../../slices/statusesSelectors";
 import { setTime } from "../../slices/timeSlice";
+import { selectCrossword } from "../../slices/crosswordSelectors";
 
 export function Timer(): JSX.Element {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const isFinished = useAppSelector(selectIsFinished);
+  const isStarted: boolean = useAppSelector(selectCrossword) !== null;
+  const isFinished: boolean = useAppSelector(selectIsFinished);
 
   const dispatch = useAppDispatch();
 
@@ -20,12 +22,14 @@ export function Timer(): JSX.Element {
       // If there is not timer, there is nothing to clean up
       return;
     }
-    const timer = setInterval(() => {
-      setElapsedTime((prev: number): number => prev + 1);
-    }, 1000);
+    if (isStarted) {
+      const timer = setInterval(() => {
+        setElapsedTime((prev: number): number => prev + 1);
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [isFinished, elapsedTime, dispatch]);
+      return () => clearInterval(timer);
+    }
+  }, [isStarted, isFinished, elapsedTime, dispatch]);
 
   return (
     <div id="Timer">
