@@ -6,16 +6,16 @@ import { createIterationOrder } from "../utils/utils";
 
 type CrosswordState = {
   crossword: CrosswordFieldType | null;
-  verticalIterationOrder: IterationOrder | null;
-  horizontalIterationOrder: IterationOrder | null;
+  verticalIterationOrder: IterationOrder;
+  horizontalIterationOrder: IterationOrder;
 };
 
 const initialState: CrosswordState = {
   crossword: null,
 
-  verticalIterationOrder: null,
+  verticalIterationOrder: [[0, 0]],
 
-  horizontalIterationOrder: null,
+  horizontalIterationOrder: [[0, 0]],
 };
 
 const crosswordSlice = createSlice({
