@@ -15,7 +15,7 @@ export function CrosswordSelection(): JSX.Element {
   const [crosswordNames, setCrosswordNames] = useState<string[]>([]);
   const [selectedCrosswordName, setSelectedCrosswordName] =
     useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const isFinished: boolean = useAppSelector(selectIsFinished);
 
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ export function CrosswordSelection(): JSX.Element {
         setCrosswordNames(keys);
       }
 
-      setLoading(false);
+      setIsLoading(false);
     };
 
     fetchKeys();
@@ -76,7 +76,7 @@ export function CrosswordSelection(): JSX.Element {
       onSubmit={handleSubmit}
     >
       <select name="crosswords" id="CrosswordsSelection" disabled={isFinished}>
-        {loading ? (
+        {isLoading ? (
           <option disabled>Loading</option>
         ) : crosswordNames ? (
           crosswordNames.map((name) => (
